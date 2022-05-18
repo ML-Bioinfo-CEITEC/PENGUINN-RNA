@@ -73,7 +73,7 @@ h1 {
   font-size: 25px;
   /* Navy blue */
   color: white;
-  padding: 8.5px 20px;
+  padding: 8.5px 15px;
   text-align: center;
   text-decoration: none;;
   font-size: 18px;
@@ -147,12 +147,10 @@ tr:nth-child(even) {
         <h4><strong>Single sequence</strong></h4>
 
         <BR />
-        <p>Insert miRNA sequence (20 nt) here</p>
+        <p>Insert miRNA sequence (200 nt) here</p>
 
-        <DIV><input type="text" name="text11" id="text11" size="50" style="width:70%;height:50px;" pattern="[AUCGaucg]{20}" placeholder="Paste miRNA sequence" required></DIV>
+        <DIV><input type="text" name="text11" id="text11" size="50" style="width:70%;height:50px;" pattern="[AUCGaucg]{20}" placeholder="Paste sequence" required></DIV>
         <BR />
-        <p>Insert target mRNA sequence (50 nt) here</p>
-        <DIV><input type="text" name="text12" id="text12" size="50" style="width:70%;height:50px;" pattern="[AUCGaucg]{50}" placeholder="Paste mRNA sequence" required></DIV><BR />
 
         <button type="button" value="Load example" name="example1" onclick="loadExample1()">Load example</button><input type="reset" value="Reset" name="reset"><button type="button" value="Submit" name="submit" onclick="makePrediction1()">Submit</button>
 			
@@ -167,12 +165,10 @@ tr:nth-child(even) {
         <h4><strong>Multiple sequences</strong></h4>
       <!--LABEL class="radio-inline"><INPUT type="radio" name="optradio" id="multiline" required>Line separated</LABEL><LABEL class="radio-inline"><INPUT type="radio" name="optradio" id="fasta">Multi-FASTA</LABEL>-->
         <BR /><BR />
-        <p>Insert miRNA (20 nt) sequences here (line separated)</p>
+        <p>Insert sequences (200nt) here (line separated)</p>
 
         <DIV><textarea name="text21" id="text21" style="width:70%;height:100px;" pattern="[A-Za-z]{20}" placeholder="Paste mRNA sequences" required></textarea></DIV>
         <BR />
-        <p>Insert target mRNA sequences (50 nt) here (line separated)</p>
-        <DIV><textarea name="text22" id="text22" style="width:70%;height:100px;" pattern="[A-Za-z]{50}" placeholder="Paste mRNA sequences" required></textarea></DIV><BR />
 
         <button type="button" value="Load example" name="example2" onclick="loadExample2()">Load example</button><input type="reset" value="Reset" name="reset"><button type="button" value="Submit" name="submit" onclick="makePrediction2()">Submit</button>
 		<br/><br/>
