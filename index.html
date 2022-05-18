@@ -124,27 +124,27 @@ tr:nth-child(even) {
 
     
     <div class="bar buttons">
-	  <button style="width:10%"class="bar-button0 button0">miRBind</button>
+	  <button style="width:10%"class="bar-button0 button0">PENGUINN RNA</button>
 	  <button style="width:30%" class="bar-button button1" onclick="openTab('about')">About</button>
-      <button style="width:30%" class="bar-button button1" onclick="openTab('single')">Single Pair</button>
-      <button style="width:30%" class="bar-button button1" onclick="openTab('multiple')">Multiple Pairs</button>
+      <button style="width:30%" class="bar-button button1" onclick="openTab('single')">Single sequence</button>
+      <button style="width:30%" class="bar-button button1" onclick="openTab('multiple')">Multiple Sequences</button>
     </div>
     <br /><br /><br /><br />
 
      <div id="about" class="bar tab">
       <FORM method="post" enctype="multipart/form-data" ><br />
-        <h4><strong>About miRBind</strong></h4>
-		<p>The <strong>miRBind JS</strong> web interface predicts the potential of miRNA:target binding. To use our machine learning method, first choose the size of the input by clicking either on <i><strong>Single pair</strong></i> or on <i><strong>Multiple pairs</strong></i>).</p>
-	<DIV class="prob1" , id="prob1"><p>For more info about miRBind, click <A href="https://github.com/ML-Bioinfo-CEITEC/miRBind" target="_blank">here</A>.</p></DIV><br/>
+        <h4><strong>About PENGUINN RNA</strong></h4>
+		<p>The <strong>PENGUINN RNA JS</strong> web interface predicts the potential of a sequence to fold into a G-quadruplex. To use our machine learning method, first choose the size of the input by clicking either on <i><strong>Single Sequence</strong></i> or on <i><strong>Multiple Sequences</strong></i>).</p>
+	<DIV class="prob1" , id="prob1"><p>For more info about miRBind, click <A href="https://github.com/ML-Bioinfo-CEITEC/PENGUINN-RNA" target="_blank">here</A>.</p></DIV><br/>
 	<strong>Key</strong><br/>For the interpretation of the miRBind scores:
-	<br/>Scores highlighted in <span  style='color:green;'>green</span> exceed the sensitive threshold (0.5) of miRBind.<br/> Scores highlighted in <span  style='color:blue;'>blue</span> exceed the precise threshold (0.9) of miRBind.
+	<br/>Scores highlighted in <span  style='color:green;'>green</span> exceed the sensitive threshold (0.5) of PENGUINN RNA.<br/> Scores highlighted in <span  style='color:blue;'>blue</span> exceed the precise threshold (0.9) of PENGUINN RNA.
       </FORM>
     </div>
 	
 	
 	<div id="single" class="bar tab" style="display:none">
       <FORM method="post" enctype="multipart/form-data" ><br />
-        <h4><strong>Single miRNA-target pair</strong></h4>
+        <h4><strong>Single sequence</strong></h4>
 
         <BR />
         <p>Insert miRNA sequence (20 nt) here</p>
@@ -164,7 +164,7 @@ tr:nth-child(even) {
 
     <div id="multiple" class="bar tab" style="display:none">
       <FORM method="post" enctype="multipart/form-data"><br />
-        <h4><strong>Multiple miRNA-target pairs</strong></h4>
+        <h4><strong>Multiple sequences</strong></h4>
       <!--LABEL class="radio-inline"><INPUT type="radio" name="optradio" id="multiline" required>Line separated</LABEL><LABEL class="radio-inline"><INPUT type="radio" name="optradio" id="fasta">Multi-FASTA</LABEL>-->
         <BR /><BR />
         <p>Insert miRNA (20 nt) sequences here (line separated)</p>
