@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="en">
-
-<meta charset="utf-8" />
-
-<HEAD>
+<!DOCTYPE html>
+<HTML lang="en">
+  <HEAD>
 <style>
 .seqtext {
   font-family: Georgia, serif;
@@ -70,13 +67,12 @@ h1 {
   background-color: #4682B4;
   font-stretch: ultra-expanded;
   font-family: Garamond, serif;
-  font-size: 25px;
+  font-size: 15px;
   /* Navy blue */
   color: white;
-  padding: 8.5px 15px;
+  padding: 5px 5px;
   text-align: center;
-  text-decoration: none;;
-  font-size: 18px;
+  text-decoration: none;
   font-weight: bolder;
   font-weight: bold;
   border: 1px solid #4682B4;
@@ -108,95 +104,284 @@ tr:nth-child(even) {
    
 </style>
 
-
     <TITLE>PENGUINN RNA</TITLE>
-    <link rel='icon' href='RBPlogo.png'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
-    <!script src="http://wzrd.in/bundle/biojs-io-fasta@latest"></script>
   </HEAD>
-
   <BODY>
-
-
-    
-    <div class="bar buttons">
+	<div class="bar buttons">
 	  <button style="width:10%"class="bar-button0 button0">PENGUINN RNA</button>
-	  <button style="width:30%" class="bar-button button1" onclick="openTab('about')">About</button>
-      <button style="width:30%" class="bar-button button1" onclick="openTab('single')">Single sequence</button>
-      <button style="width:30%" class="bar-button button1" onclick="openTab('multiple')">Multiple Sequences</button>
+	  <button style="width:45%" class="bar-button button1" onclick="openTab('about')">About</button>
+      <button style="width:45%" class="bar-button button1" onclick="openTab('single')">Queries</button>
     </div>
-    <br /><br /><br /><br />
-
-     <div id="about" class="bar tab">
+	<br /><br /><br /><br />
+	
+	<div id="about" class="bar tab">
       <FORM method="post" enctype="multipart/form-data" ><br />
-        <h4><strong>About PENGUINN RNA</strong></h4>
-		<p>The <strong>PENGUINN RNA JS</strong> web interface predicts the potential of a sequence to fold into a G-quadruplex. To use our machine learning method, first choose the size of the input by clicking either on <i><strong>Single Sequence</strong></i> or on <i><strong>Multiple Sequences</strong></i>).</p>
+	<h4><strong>About PENGUINN RNA</strong></h4>
+		<p>The <strong>PENGUINN RNA </strong> web interface predicts the potential of a sequence to fold into a G-quadruplex. To use our machine learning method, first choose the size of the input by clicking either on <i><strong>Single Sequence</strong></i> or on <i><strong>Multiple Sequences</strong></i>).</p>
 	<DIV class="prob1" , id="prob1"><p>For more info about PENGUINN RNA, click <A href="https://github.com/ML-Bioinfo-CEITEC/PENGUINN-RNA" target="_blank">here</A>.</p></DIV><br/>
 	<strong>Key</strong><br/>For the interpretation of the miRBind scores:
 	<br/>Scores highlighted in <span  style='color:green;'>green</span> exceed the sensitive threshold (0.5) of PENGUINN RNA.<br/> Scores highlighted in <span  style='color:blue;'>blue</span> exceed the precise threshold (0.9) of PENGUINN RNA.
-      </FORM>
+    </FORM>
     </div>
-	
 	
 	<div id="single" class="bar tab" style="display:none">
-      <FORM method="post" enctype="multipart/form-data" ><br />
-        <h4><strong>Single sequence</strong></h4>
+     <FORM>
+      <LABEL class="radio-inline">
+        <INPUT type="radio" name="optradio" id="opt_single" onclick="checkedSingle();" checked>Single sequence
+        </LABEL>
+      <LABEL class="radio-inline">
+        <INPUT type="radio" name="optradio" id="opt_fasta" onclick="checkedFasta();">Multiple sequences (FASTA)
+        </LABEL>
+      <LABEL class="radio-inline">
+        <INPUT type="radio" name="optradio" id="opt_multiline" onclick="checkedMultiline();">Multiple sequences (line separated)
+        </LABEL>
+    </FORM>
+    <DIV><TEXTAREA name="text1" id="text1" style="width:90%;height:150px;" 
+      placeholder="Copy your DNA sequence here (20 - 200bp sequence consisting of A, C, G, T and N characters). 
 
-        <BR />
-        <p>Insert miRNA sequence (200 nt) here</p>
-
-        <DIV><input type="text" name="text11" id="text11" size="50" style="width:70%;height:50px;" pattern="[AUCGaucg]{20}" placeholder="Paste sequence" required></DIV>
-        <BR />
-
-        <button type="button" value="Load example" name="example1" onclick="loadExample1()">Load example</button><input type="reset" value="Reset" name="reset"><button type="button" value="Submit" name="submit" onclick="makePrediction1()">Submit</button>
-			
-		<br/><br/>
-		<DIV class="prob" , id="prob2"></DIV><br/>
-      </FORM>
-    </div>
-
-
-    <div id="multiple" class="bar tab" style="display:none">
-      <FORM method="post" enctype="multipart/form-data"><br />
-        <h4><strong>Multiple sequences</strong></h4>
-      <!--LABEL class="radio-inline"><INPUT type="radio" name="optradio" id="multiline" required>Line separated</LABEL><LABEL class="radio-inline"><INPUT type="radio" name="optradio" id="fasta">Multi-FASTA</LABEL>-->
-        <BR /><BR />
-        <p>Insert sequences (200nt) here (line separated)</p>
-
-        <DIV><textarea name="text21" id="text21" style="width:70%;height:100px;" pattern="[A-Za-z]{20}" placeholder="Paste mRNA sequences" required></textarea></DIV>
-        <BR />
-
-        <button type="button" value="Load example" name="example2" onclick="loadExample2()">Load example</button><input type="reset" value="Reset" name="reset"><button type="button" value="Submit" name="submit" onclick="makePrediction2()">Submit</button>
-		<br/><br/>
-		<DIV class="prob" , id="prob3"></DIV><br/>
-      </FORM>
-    </div><BR /><br /><br /><br /><br />
-
+Example: 
+GGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG"></TEXTAREA></DIV>
+    <FORM>
+      <LABEL class="radio-inline">
+        <INPUT type="radio" name="optradio" id="opt_textoutput" checked>Text output
+      </LABEL>
+      <LABEL class="radio-inline">
+        <INPUT type="radio" name="optradio" id="opt_tabularoutput">Tabular output
+      </LABEL>
+    </FORM><BR/>
+    <DIV><BUTTON type="button" onclick="makePrediction();">Predict</BUTTON>
+    <BUTTON type="button" onclick="loadExample();">Load Example</BUTTON></DIV><BR/>
+    <DIV class = "prob", id = "prob2">For more info about Penguinn and contact to its developers, see <A href="https://github.com/ML-Bioinfo-CEITEC/penguinn" target="_blank" rel="noopener noreferrer">https://github.com/ML-Bioinfo-CEITEC/penguinn</A>.</DIV>
+	</div>
 <script>
-function validateSequence(sequence, minSize, maxSize) {
+
+
+function prolongSequence(sequence, size) {  
+  const Ncount = size - sequence.length;
+  const leftNcount = Math.floor(Math.random() * (Ncount+1));
+  const rightNcount = Ncount - leftNcount;
+  const leftNs = "N".repeat(leftNcount);
+  const rightNs = "N".repeat(rightNcount);
+  return leftNs.concat(sequence, rightNs);
+}
+
+function validateSequence(sequence, minSize=20, maxSize=200) {
   if (sequence.length > maxSize) {
-    return ' is too long; it needs to be equal to '.concat(maxSize, ' nt.');
+    return 'The sequence is too long. The sequence needs to be shorter or equal to '.concat(maxSize, '.');
   } else if (sequence.length < minSize) {
-    return ' is too short; it needs to be equal to '.concat(minSize, ' nt.');
-  } else if ('' != sequence.replace(/A/g, '').replace(/T/g, '').replace(/C/g, '').replace(/G/g, '').replace(/N/g, '')) {
-    return 'The sequence must consist only of "A", "C", "T", "G".';
+    return 'The sequence is too short. The sequence needs to be longer or equal to '.concat(minSize, '.');
+  } else if ('' != sequence.replace(/A/g,'').replace(/T/g,'').replace(/U/g,'').replace(/C/g,'').replace(/G/g,'').replace(/N/g,'')) {
+    return 'The sequence must consist only of "A", "C", "T", "G" and "U" characters.';
   } else {
     return '';
   }
 }
 
-function formatOutput(sequence, results, error = 0, seq_name = '', output_type = 'text') {
-  if (output_type == 'text') {
-    return formatText(sequence, results, error, seq_name)
-  } else {
-    return formatTable(sequence, results, error, seq_name)
-  }
+function getAverage(array){
+  const n = array.length
+  const mean = array.reduce((a, b) => a + b) / n
+  return mean
 }
 
+// copied from https://stackoverflow.com/a/53577159
+function getStandardDeviation(array) {
+  const n = array.length
+  const mean = array.reduce((a, b) => a + b) / n
+  return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
+}
+
+function formatText(sequence, results, error=0, seq_name='') {
+  console.log("formatting output..." + error);
+
+  var output = "<br/><b>Input:</b><seqtext>";
+  if (seq_name!='') {
+    output = output.concat(">", seq_name, "<br/>");
+  }
+
+  output = output.concat(sequence.replace(/(.{50})/g,"$1<br/>"), "</seqtext>");
+  if (error) {
+    output = output.concat("<b>Error:</b><br/><br/>", results, '<br/><br/><br/>');
+  } else {
+
+    result = getAverage(results).toFixed(3);
+    stdev = getStandardDeviation(results);
+    twoerr = (2 * stdev / Math.sqrt(results.length - 1)).toFixed(3);
+    if (twoerr < 0.001) {
+      twoerr = '<0.001'
+    }
+
+    if (result > 0.85) {
+      output = output.concat("<b>Output:</b><br/><br/>Probability of G4 complex =   ", result, ' (±', twoerr,'), higher than PENGUINN Precise score threshold.<br/><br/><br/>');
+    } else if (result > 0.5) {
+      output = output.concat("<b>Output:</b><br/><br/>Probability of G4 complex =   ", result, ' (±', twoerr,'), higher than PENGUINN Sensitive score threshold.<br/><br/><br/>');
+    } else {
+      output = output.concat("<b>Output:</b><br/><br/>Probability of G4 complex =   ", result, ' (±', twoerr,'), sequence does not pass PENGUINN threshold.<br/><br/><br/>');
+    }  
+  }
+
+  return output
+}
+
+function formatTable(sequence, results, error=0, seq_name='') {
+  console.log("formatting output as CSV..." + error);
+
+  var output = "";
+  if (seq_name!='') {
+    output = output.concat(seq_name, ", ");
+  }
+
+  output = output.concat(sequence, ", ");
+  if (error) {
+    output = output.concat("NA, NA");
+  } else {
+    result = getAverage(results).toFixed(6);
+    stdev = getStandardDeviation(results);
+    twoerr = (2 * stdev / Math.sqrt(results.length - 1)).toFixed(6);
+    output = output.concat(result, ', ', twoerr);
+  }
+  output = output.concat("<br/>");
+
+  return output
+};
+
+function formatOutput(sequence, results, error=0, seq_name='', output_type='text') {
+  if (output_type=='text') {
+    return formatText(sequence, results, error, seq_name) 
+  } else {
+    return formatTable(sequence, results, error, seq_name) 
+  }
+};
+
+function oneHot(s200) {
+  // one-hot encoding
+  const t = s200.replace(/A/g,'0').replace(/T/g,'1').replace(/C/g,'2').replace(/G/g,'3').replace(/N/g,'9')
+  const y = tf.oneHot(tf.tensor1d(t.split(''),'int32'),4);
+  return y.reshape([1,200,4]);
+}
+
+function simpleSeq(x) {
+  return {name: '', seq: x};
+}
+
+function setTextArea(text='') {
+  var ta = document.getElementById('text1');
+  ta.value = '';
+  ta.placeholder = text;
+}
+
+function checkedSingle(){
+  setTextArea("Copy your DNA sequence here (20 - 200bp sequence consisting of A, C, G, T and N characters).\n\nExample:\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG");
+}
+
+function checkedFasta(){
+  setTextArea("Copy your FASTA formatted DNA sequences here.\n\nExample:\n>Seq1\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG\n>Seq2\nTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAAT");
+}
+
+function checkedMultiline(){
+  setTextArea("Copy your DNA sequences here (each on a separate line).\n\nExample:\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG\nTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAAT");
+}
+
+function loadExample(){
+  console.log("making example...");
+  if(document.getElementById('opt_single').checked) {
+    example = "GAGACACCACTACAGTTAGCAGTGAGTGTAAAATAATGAGTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAATGAAGCCTTGCGTTTTTGCTTAAATGATTTACAAAAAATATTTGATGTCCATCCTGGGATAGGGAATTCCTCCCCCATAACTTTGAAAGTGCAGTTGCTTCATTCC"
+  }
+  if(document.getElementById('opt_fasta').checked) {  
+    example = ">negative_example\nGAGACACCACTACAGTTAGCAGTGAGTGTAAAATAATGAGTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAATGAAGCCTTGCGTTTTTGCTTAAATGATTTACAAAAAATATTTGATGTCCATCCTGGGATAGGGAATTCCTCCCCCATAACTTTGAAAGTGCAGTTGCTTCATTCC\n>positive_example\nGAAGAGACCAAGACGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGGACTTGACTGTGCTTACCAAAGGACCTAACGGAGGGGTCCATAGGAGTCTTGCGGGACTCCCTGGCACTGGAGTAGTATCGACATAAGGGTCACGGACGTTCCATTTAGTGAGCCATTTATAAACCACTATC\n>wrong_input\nFFGHAAJ"
+  }
+  if(document.getElementById('opt_multiline').checked) {  
+    example = "GAGACACCACTACAGTTAGCAGTGAGTGTAAAATAATGAGTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAATGAAGCCTTGCGTTTTTGCTTAAATGATTTACAAAAAATATTTGATGTCCATCCTGGGATAGGGAATTCCTCCCCCATAACTTTGAAAGTGCAGTTGCTTCATTCC\nGAAGAGACCAAGACGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGGACTTGACTGTGCTTACCAAAGGACCTAACGGAGGGGTCCATAGGAGTCTTGCGGGACTCCCTGGCACTGGAGTAGTATCGACATAAGGGTCACGGACGTTCCATTTAGTGAGCCATTTATAAACCACTATC"
+  }  
+
+  var textarea = document.getElementById('text1');
+  textarea.value = example;
+};
+
+async function makePrediction() {
+  
+  // get HTML elements
+  var prob = document.getElementById('prob2');
+  prob.innerHTML = '';
+  var txt = document.getElementById('text1').value;
+  
+  console.log("model loading...");
+
+  // clear the model variable
+  var model = undefined;
+  // load model
+  model = await tf.loadLayersModel("https://raw.githubusercontent.com/ML-Bioinfo-CEITEC/PENGUINN-RNA/gh-pages/assets/model.json");
+  console.log("model loaded...");
+
+  // parse input text into the array of sequences
+  var seqArray = [];
+  if(document.getElementById('opt_single').checked) {
+    const seq = txt.replace(/\r?\n|\r/g,'').replace(/\s/g, '');
+    seqArray = [simpleSeq(seq)];
+  }
+  if(document.getElementById('opt_fasta').checked) {
+    var fasta = require("biojs-io-fasta");
+    seqArray = fasta.parse(txt);
+  }  
+  if(document.getElementById('opt_multiline').checked) {
+    seqArray = txt.split(/\r?\n/).map(simpleSeq);
+  }
+
+  if(document.getElementById('opt_tabularoutput').checked) {
+    var output_type="tabular";
+    if(document.getElementById('opt_fasta').checked) {
+      prob.innerHTML += '<b>Name, </b>'
+    }
+    prob.innerHTML += '<b>Sequence, G4_Probability, Twice_SE</b><br />';
+  }
+  if(document.getElementById('opt_textoutput').checked) {
+    var output_type="text";
+  }
+  
+  
+  // process the array of sequences
+  for (var i = 0; i < seqArray.length; i++) {  
+    
+    var s = seqArray[i].seq.toUpperCase();
+    
+    // check the sequence format
+    const validation = validateSequence(s, 20, 200)
+    if (validation != '') {
+      console.log("wrong input...");
+      prob.innerHTML += formatOutput(s, validation, 1, seqArray[i].name, output_type);
+      continue;
+    }
+    var s2 = s;
+
+    const Ntries = 100; // number of tries 
+    var results = [];
+    for (j=0; j<Ntries; j++) {
+      if (s.length < 200) {
+        s2 = prolongSequence(s, 200);
+      }  
+  
+      // from string to one-hot array
+      var a = oneHot(s2);
+  
+      // inference
+      results.push(parseFloat(model.predict(a).asScalar().dataSync()));
+    }
+
+    // output
+    prob.innerHTML += formatOutput(s, results, 0, seqArray[i].name, output_type);
+  }  
+  
+}
+
+// Example(s): 
+// GAGACACCACTACAGTTAGCAGTGAGTGTAAAATAATGAGTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAATGAAGCCTTGCGTTTTTGCTTAAATGATTTACAAAAAATATTTGATGTCCATCCTGGGATAGGGAATTCCTCCCCCATAACTTTGAAAGTGCAGTTGCTTCATTCC
+// 0.00069759286
+// NNNGAAGAGACCAAGACGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGGACTTGACTGTGCTTACCAAAGGACCTAACGGAGGGGTCCATAGGAGTCTTGCGGGACTCCCTGGCACTGGAGTAGTATCGACATAAGGGTCACGGACGTTCCATTTAGTGAGCCATTTATAAACCACTATCNN
+// 0.87126887
 
 function openTab(tabName) {
   var i;
@@ -207,209 +392,6 @@ function openTab(tabName) {
   document.getElementById(tabName).style.display = "block";
 }
 
-
-function simpleSeq(x) {
-  return {
-    name: '',
-    seq: x
-  };
-}
-
-async function makePrediction1() {
-  var txt11 = document.getElementById('text11').value;
-  var txt12 = document.getElementById('text12').value;
-  var prob = document.getElementById('prob2');
-  prob.innerHTML = '';
-  const seq11 = txt11.replace(/\r?\n|\r/g, '').replace(/\s/g, '');
-  const seq12 = txt12.replace(/\r?\n|\r/g, '').replace(/\s/g, '');
-  seqArray11 = seq11;
-  seqArray12 = seq12;
-
-  var s11 = seq11.toUpperCase();
-  var s12 = seq12.toUpperCase();
-  const validation11 = validateSequence(s11, 20, 20)
-  if (validation11 != '') {
-    console.log("wrong mir");
-	prob.innerHTML += "<br/>" + s11 + " " + validation11 + "<br/>";
-  }
-
-  const validation12 = validateSequence(s12, 50, 50)
-  if (validation12 != '') {
-    console.log("wrong mrna");
-	prob.innerHTML += "<br/>" + s12 + " " + validation12 + "<br/>";
-  }
-
-  if ((validation11 == '') & (validation12 == '')) {
-    var model = undefined;
-    modelUrl = "https://raw.githubusercontent.com/ML-Bioinfo-CEITEC/PENGUINN-RNA/gh-pages/assets/model.json"
-    prob.innerHTML += "Loading the model...";
-    model = await tf.loadLayersModel(modelUrl);
-    prob.innerHTML += "Predicting..";
-    console.log("model loaded...");
-    char = s11.charAt(1) + s12.charAt(1);
-    console.log(char);
-    input = "";
-    for (var i = 0; i < 1000; i++) {
-      input[i] = new Array(20);
-    }
-    binding = ["AT", "TA", "CG", "GC"];
-    if (binding.includes(char)) {
-      console.log("included");
-    }
-    for (var i = 0; i < 50; i++) {
-      for (var j = 0; j < 20; j++) {
-        char = s11.charAt(j) + s12.charAt(i);
-        if (binding.includes(char)) {
-          input += '1';
-        } else {
-          input += '0';
-        }
-      }
-    }
-
-    const y1 = tf.tensor1d(input.split(''), 'int32');
-    y2 = y1.reshape([1, 50, 20, 1]);
-    var result = parseFloat(model.predict(y2).asScalar().dataSync());
-    result = result.toFixed(4);
-    prob.innerHTML = "";
-	appendix = "<br/><br/>Scores highlighted in <span  style='color:green;'>green</span> exceed the sensitive threshold (0.5) of miRBind.<br/> Scores highlighted in <span  style='color:blue;'>blue</span> exceed the precise threshold (0.9) of miRBind."
-    header = "</br><table><tr><th>miRNA sequence</th><th>mRNA sequence</th><th>Score</th></tr>";
-	if (result >=0.9) {
-	  result = "<tr><td>" + s11 + "</td><td>" + s12 + "</td><td style='color:blue;'>" + result + "</td></td></table>";
-	  }
-	else if (result >= 0.5) {
-	  result = "<tr><td>" + s11 + "</td><td>" + s12 + "</td><td style='color:green;'>" + result + "</td></td></table>"; 
-	  }
-	else {
-      result = "<tr><td>" + s11 + "</td><td>" + s12 + "</td><td>" + result + "</td></td></table>";
-	  }
-    table = header + result;
-    prob.innerHTML += table;
-	prob.innerHTML += appendix;
-  }
-}
-
-
-function loadExample1() {
-  miRex1 = "TCCGAGCCTGGGTCTCCCTC";
-  mRNAex1 = "TTCAGGAGAAGCTGAGAGAGACCCAGGAGTATAACCGAATTCAGAAGGAG";
-  document.getElementsByName("text11")[0].value = miRex1;
-  document.getElementsByName("text12")[0].value = mRNAex1;
-  var prob = document.getElementById('prob2');
-  prob.innerHTML = "";
-  header = "<table><tr><th>miRNA sequence</th><th>mRNA sequence</th><th>Score</th></tr>";
-  result = "<tr><td>" + miRex1 + "</td><td>" + mRNAex1 + "</td><td style='color:blue;'>0.9978</td></td></table>";
-  appendix = "<br/><br/>Scores highlighted in <span  style='color:green;'>green</span> exceed the sensitive threshold (0.5) of miRBind.<br/> Scores highlighted in <span  style='color:blue;'>blue</span> exceed the precise threshold (0.9) of miRBind."
-  table = header + result;
-  prob.innerHTML += table;
-  prob.innerHTML += appendix;
-}
-
-function loadExample2() {
-  miRex1 = "TCCGAGCCTGGGTCTCCCTC";
-  mRNAex1 = "TTCAGGAGAAGCTGAGAGAGACCCAGGAGTATAACCGAATTCAGAAGGAG";
-  miRex2 = "AAAGTGCTTCCCTTTGGACT";
-  mRNAex2 = "CCTGAGGAGACCAAGCTGGGCAAGAGGCAGTGCGACGGCAAGAATGCGCT";
-  document.getElementsByName("text21")[0].value = miRex1 + "\n" + miRex2;
-  document.getElementsByName("text22")[0].value = mRNAex1 + "\n" + mRNAex2;
-  var prob = document.getElementById('prob3');
-  prob.innerHTML = "";
-  header = "<table><tr><th>miRNA sequence</th><th>mRNA sequence</th><th>Score</th></tr>";
-  result = "<tr><td>" + miRex1 + "</td><td>" + mRNAex1 + "</td><td style='color:blue;'>0.9978</td></td><tr><td>" + miRex2 + "</td><td>" + mRNAex2 + "</td><td>0.0216</td></td></table>";
-  appendix = "<br/><br/>Scores highlighted in <span  style='color:green;'>green</span> exceed the sensitive threshold (0.5) of miRBind.<br/> Scores highlighted in <span  style='color:blue;'>blue</span> exceed the precise threshold (0.9) of miRBind."
-  table = header + result;
-  prob.innerHTML += table;
-  prob.innerHTML += appendix;
-}
-
-
-async function makePrediction2() {
-  sensitive = 0.5;
-  precise = 0.9;
-  var seqArray = [];
-  results = "";
-  var txt21 = document.getElementById('text21').value;
-  var txt22 = document.getElementById('text22').value;
-  var prob = document.getElementById('prob3');
-  prob.innerHTML = '';
-  //if (document.getElementById('fasta').checked) {
-  //console.log("fasta");
-  //var fasta = require("biojs-io-fasta");
-  //seqArray21 = fasta.parse(txt21);
-  //seqArray22 = fasta.parse(txt22);
-  //}
-  //if (document.getElementById('multiline').checked) {
-  seqArray21 = txt21.split(/\r?\n/).map(simpleSeq);
-  seqArray22 = txt22.split(/\r?\n/).map(simpleSeq);
-  //}
-  var equalNumber = true;
-  if (seqArray21.length != seqArray22.length) {
-    prob.innerHTML += "<br/>The number of miRNAs and mRNAs should be equal.<br/>"
-    var equalNumber = false;
-  }
-  var model = undefined;
-  modelUrl = "https://raw.githubusercontent.com/ML-Bioinfo-CEITEC/miRBind/gh-pages/assets/model.json";
-  model = await tf.loadLayersModel(modelUrl);
-  console.log("model loaded...");
-  validated = false;
-  if (equalNumber) {
-    for (var i = 0; i < seqArray21.length; i++) {
-      var s21 = seqArray21[i].seq.toUpperCase();
-      var s22 = seqArray22[i].seq.toUpperCase();
-      const validation21 = validateSequence(s21, 20, 20);
-      const validation22 = validateSequence(s22, 50, 50);
-      if ((validation21 != '') || (validation22 != '')) {
-        if (validation21 != '') {
-          prob.innerHTML += "<br/>" + seqArray21[i].name + " " + s21 + " " + validation21 + "<br/>";
-        } else {
-          prob.innerHTML += "<br/>" + seqArray22[i].name + " " + s22 + " " + validation22 + "<br/>";
-        }
-        continue;
-      }
-      console.log("all validated");
-      input = "";
-      for (var j = 0; j < 1000; j++) {
-        input[j] = new Array(20);
-      }
-      binding = ["AT", "TA", "CG", "GC"];
-      for (var k = 0; k < 50; k++) {
-        for (var l = 0; l < 20; l++) {
-          char = s21.charAt(l) + s22.charAt(k);
-          if (binding.includes(char)) {
-            input += '1';
-          } else {
-            input += '0';
-          }
-        }
-      }
-      console.log("input calc");
-      y1 = tf.tensor1d(input.split(''), 'int32');
-      y2 = y1.reshape([1, 50, 20, 1]);
-
-      if ((validation21 == '') & (validation22 == '')) {
-        validated = true;
-        var result = parseFloat(model.predict(y2).asScalar().dataSync());
-		result = result.toFixed(4);
-		if (result >= 0.9) {
-		  results += "<tr><td>" + s21 + "</td><td>" + s22 + "</td><td style='color:blue;'>" + result + "</td></tr>";
-		}
-		else if (result >= 0.5){
-		  results += "<tr><td>" + s21 + "</td><td>" + s22 + "</td><td style='color:green;'>" + result + "</td></tr>";
-		}
-		else {
-          results += "<tr><td>" + s21 + "</td><td>" + s22 + "</td><td>" + result + "</td></tr>";
-		}
-      }
-      header = "</br><table><tr><th>miRNA sequence</th><th>mRNA sequence</th><th>Score</th></tr>"
-    }
-    if (validated) {
-	  appendix = "<br/><br/>Scores highlighted in <span  style='color:green;'>green</span> exceed the sensitive threshold (0.5) of miRBind.<br/> Scores highlighted in <span  style='color:blue;'>blue</span> exceed the precise threshold (0.9) of miRBind."
-      table = header + results;
-      prob.innerHTML += table;
-	  prob.innerHTML += appendix;
-    }
-  }
-}
 	</script>
 		
   </BODY>
