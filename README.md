@@ -44,7 +44,7 @@ Default model is set to model trained on human rG4 dataset with positive:negativ
 
 ### Web application
 
-https://ml-bioinfo-ceitec.github.io/penguinn-rna/
+https://ml-bioinfo-ceitec.github.io/PENGUINN-RNA/
 
 ### Contact information
 
