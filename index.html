@@ -123,8 +123,8 @@ tr:nth-child(even) {
       <FORM method="post" enctype="multipart/form-data" ><br />
 	<h4><strong>About PENGUINN RNA</strong></h4>
 		<p>The <strong>PENGUINN RNA </strong> web interface predicts the potential of a sequence to fold into a G-quadruplex. To use our machine learning method, first choose the size of the input by clicking either on <i><strong>Single Sequence</strong></i> or on <i><strong>Multiple Sequences</strong></i>).</p>
-		<DIV class="prob1" , id="prob1"><p>For more info about PENGUINN RNA, click <A href="https://github.com/ML-Bioinfo-CEITEC/PENGUINN-RNA" target="_blank">here</A>.</p></DIV><br/>
-	      <strong>Key</strong><br/>For the interpretation of the miRBind scores:
+	<DIV class="prob1" , id="prob1"><p>For more info about PENGUINN RNA, click <A href="https://github.com/ML-Bioinfo-CEITEC/PENGUINN-RNA" target="_blank">here</A>.</p></DIV><br/>
+	<strong>Key</strong><br/>For the interpretation of the miRBind scores:
 	<br/>Scores highlighted in <span  style='color:green;'>green</span> exceed the sensitive threshold (0.5) of PENGUINN RNA.<br/> Scores highlighted in <span  style='color:blue;'>blue</span> exceed the precise threshold (0.9) of PENGUINN RNA.
     </FORM>
     </div>
@@ -142,7 +142,7 @@ tr:nth-child(even) {
         </LABEL>
     </FORM>
     <DIV><TEXTAREA name="text1" id="text1" style="width:90%;height:150px;" 
-      placeholder="Copy your RNA sequence here (20 - 200bp sequence consisting of A, C, G, T and U characters). 
+      placeholder="Copy your DNA sequence here (20 - 200bp sequence consisting of A, C, G, T and N characters). 
 
 Example: 
 GGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG"></TEXTAREA></DIV>
@@ -155,7 +155,8 @@ GGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG"></TEXTAREA></DIV>
       </LABEL>
     </FORM><BR/>
     <DIV><BUTTON type="button" onclick="makePrediction();">Predict</BUTTON>
-    <BUTTON type="button" onclick="loadExample();">Load Example</BUTTON></DIV><BR/>   
+    <BUTTON type="button" onclick="loadExample();">Load Example</BUTTON></DIV><BR/>
+    <DIV class = "prob", id = "prob2">For more info about Penguinn and contact to its developers, see <A href="https://github.com/ML-Bioinfo-CEITEC/penguinn" target="_blank" rel="noopener noreferrer">https://github.com/ML-Bioinfo-CEITEC/penguinn</A>.</DIV>
 	</div>
 <script>
 
@@ -274,15 +275,15 @@ function setTextArea(text='') {
 }
 
 function checkedSingle(){
-  setTextArea("Copy your RNA sequence here (20 - 200bp sequence consisting of A, C, G, T and N characters).\n\nExample:\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG");
+  setTextArea("Copy your DNA sequence here (20 - 200bp sequence consisting of A, C, G, T and N characters).\n\nExample:\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG");
 }
 
 function checkedFasta(){
-  setTextArea("Copy your FASTA formatted RNA sequences here.\n\nExample:\n>Seq1\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG\n>Seq2\nTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAAT");
+  setTextArea("Copy your FASTA formatted DNA sequences here.\n\nExample:\n>Seq1\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG\n>Seq2\nTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAAT");
 }
 
 function checkedMultiline(){
-  setTextArea("Copy your RNA sequences here (each on a separate line).\n\nExample:\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG\nTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAAT");
+  setTextArea("Copy your DNA sequences here (each on a separate line).\n\nExample:\nGGAAGACCCAATCGGACCGGGAGGTCCGGGGAGACGTGTCGGGGATCGGG\nTGTCAGAAACTTATATTGGGTGATTTCATTTTTAAAAGTAACCAAAGTGAAAAAT");
 }
 
 function loadExample(){
