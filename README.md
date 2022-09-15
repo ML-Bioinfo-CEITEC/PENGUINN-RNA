@@ -48,4 +48,4 @@ https://ml-bioinfo-ceitec.github.io/PENGUINN-RNA/
 
 ### Contact information
 
-CEITEC MU, RBP Bioinformatics - Panagiotis Alexiou, https://www.ceitec.eu/rbp-bioinformatics-panagiotis-alexiou/rg281
+CEITEC Masaryk University, RBP Bioinformatics - Panagiotis Alexiou, https://www.ceitec.eu/rbp-bioinformatics-panagiotis-alexiou/rg281
